@@ -9,7 +9,7 @@ load_dotenv()
 
 # ── ASR Model Settings ──────────────────────────────────────────────
 MODEL_NAME = "ai4bharat/indic-conformer-600m-multilingual"
-MODEL_CACHE_DIR = os.getenv("MODEL_CACHE_DIR", "/app/model_cache")
+MODEL_CACHE_DIR = os.getenv("MODEL_CACHE_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "model_cache"))
 TARGET_SR = 16000
 LANG_CODE = "bn"
 DECODE_STRATEGY = "ctc"

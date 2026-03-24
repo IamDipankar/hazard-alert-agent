@@ -13,3 +13,6 @@ Guideline files/
 
 # Surge prediction files
 Surge prediction file/
+
+# Cached model (built during deploy)
+model_cache/

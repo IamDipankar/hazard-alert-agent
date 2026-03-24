@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# This script runs during Koyeb's Heroku buildpack build phase,
+# AFTER pip install. It downloads the ASR model so it's cached
+# in the build slug and doesn't need to be downloaded at runtime.
+
+set -e
+
+echo "=== post_compile: Downloading ASR model ==="
+python download_model.py
+echo "=== post_compile: Model download complete ==="

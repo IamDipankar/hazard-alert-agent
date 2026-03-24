@@ -29,7 +29,9 @@ def main():
         print(f"\n🚀  Starting server at http://{HOST}:{PORT}\n")
 
     # ── Start Uvicorn ───────────────────────────────────────────────
-    uvicorn.run("app:app", host=HOST, port=PORT, reload=False)
+    # Force single worker: each worker loads the full model into memory,
+    # so multiple workers would multiply RAM usage and cause HF rate limits.
+    uvicorn.run("app:app", host=HOST, port=PORT, workers=1, reload=False)
 
 
 if __name__ == "__main__":
