@@ -1,0 +1,15 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Guideline files
+Guideline files/
+
+# Surge prediction files
+Surge prediction file/
