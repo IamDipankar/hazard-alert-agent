@@ -7,7 +7,9 @@ import torch
 import torchaudio
 from transformers import AutoModel
 
-from config import MODEL_NAME, TARGET_SR, LANG_CODE, DECODE_STRATEGY, HF_TOKEN
+import os
+
+from config import MODEL_NAME, MODEL_CACHE_DIR, TARGET_SR, LANG_CODE, DECODE_STRATEGY, HF_TOKEN
 
 # ── Resampler cache ─────────────────────────────────────────────────
 _resampler_cache: dict[int, torchaudio.transforms.Resample] = {}
@@ -27,15 +29,30 @@ _model = None
 
 
 def load_model():
-    """Load the ASR model (called once at startup)."""
+    """
+    Load the ASR model.
+    Tries the local cache first (fast — used in Docker/Koyeb),
+    falls back to downloading from HuggingFace (local dev).
+    """
     global _model
-    print("Loading ASR model...")
-    _model = AutoModel.from_pretrained(
-        MODEL_NAME,
-        trust_remote_code=True,
-        token=HF_TOKEN,
-        device_map="auto",
-    )
+
+    # Fast path: load from pre-cached model directory
+    if os.path.isdir(MODEL_CACHE_DIR) and os.listdir(MODEL_CACHE_DIR):
+        print(f"Loading ASR model from local cache: {MODEL_CACHE_DIR} ...")
+        _model = AutoModel.from_pretrained(
+            MODEL_CACHE_DIR,
+            trust_remote_code=True,
+            device_map="auto",
+        )
+    else:
+        print(f"Local cache not found. Downloading model '{MODEL_NAME}' ...")
+        _model = AutoModel.from_pretrained(
+            MODEL_NAME,
+            trust_remote_code=True,
+            token=HF_TOKEN,
+            device_map="auto",
+        )
+
     _model.eval()
     print("ASR model ready.")
 

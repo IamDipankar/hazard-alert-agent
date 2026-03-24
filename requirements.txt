@@ -6,8 +6,5 @@ torchaudio
 numpy
 onnxruntime==1.20.1
 onnx==1.20.1
-onnxruntime-gpu==1.20.1
-pyngrok
-nest-asyncio
 python-dotenv
 jinja2

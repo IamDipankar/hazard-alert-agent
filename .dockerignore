@@ -1,0 +1,12 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.ipynb
+.git/
+.gitignore
+.dockerignore
+README.md
+Guideline files/
+Surge prediction file/
