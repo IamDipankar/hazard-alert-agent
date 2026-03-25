@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential libpq-dev ffmpeg curl && \
