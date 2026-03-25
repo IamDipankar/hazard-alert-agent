@@ -4,11 +4,12 @@
 # Python cache
 __pycache__/
 *.pyc
+*.pyo
 
 # Environment variables
 .env
 
-# Guideline files
+# Guideline files (large docs)
 Guideline files/
 
 # Surge prediction files
@@ -16,3 +17,30 @@ Surge prediction file/
 
 # Cached model (built during deploy)
 model_cache/
+.hf_cache/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Old prototype files (replaced by monorepo)
+# app.py
+# config.py
+# asr_model.py
+# run_server.py
+# download_model.py
+# templates/
+
+# Slide content
+slide content.docx
