@@ -1,4 +1,4 @@
-# ── Main backend Dockerfile (replaces old single-file Dockerfile) ────
+# # Main backend Dockerfile
 FROM python:3.11-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -8,18 +8,19 @@ ENV PYTHONDONTWRITEBYTECODE=1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential libpq-dev ffmpeg curl && \
-    rm -rf /var/lib/apt/lists/*
+            rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+            WORKDIR /app
 
-COPY backend/requirements.txt /app/backend/requirements.txt
-RUN pip install --no-cache-dir -r /app/backend/requirements.txt
+            COPY backend/requirements.txt /app/backend/requirements.txt
+            RUN pip install --no-cache-dir -r /app/backend/requirements.txt
 
-COPY . /app
+            COPY . /app
 
-ENV PORT=8000
-ENV HOST=0.0.0.0
+            ENV PORT=8000
+            ENV HOST=0.0.0.0
 
-EXPOSE 8000
+            EXPOSE 8000
 
-CMD ["sh", "-c", "alembic upgrade head && uvicorn backend.app.main:app --host 0.0.0.0 --port 8000"]
+            CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+            
